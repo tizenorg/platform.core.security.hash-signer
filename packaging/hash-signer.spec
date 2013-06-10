@@ -5,8 +5,11 @@ Release:    1
 Group:      TO_BE/FILLED_IN
 License:    TO BE FILLED IN
 Source0:    %{name}-%{version}.tar.gz
+BuildRequires: xmlsec1
 Requires:   xmlstarlet
 Requires:   xmlsec1
+Requires:   zip
+Requires:   unzip
 %description
 TBD
 

@@ -182,12 +182,15 @@ then
     echo
 fi
 
+pkgname=$(basename "$1")
 cd $WD
-if [ -f "$1" ]
+if [ -f "$pkgname" ]
 then
     echo "Zipping widget..."
-    rm -f "$1"
-    zip -jr $WD/$WIDGET.wgt $wgtdir
+    rm -f "$pkgname"
+    cd $wgtdir
+    zip -r $WD/$WIDGET.wgt ./
+    cd $WD
     rm -rf $wgtdir
 fi
 
