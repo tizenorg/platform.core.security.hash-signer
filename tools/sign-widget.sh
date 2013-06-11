@@ -1,4 +1,15 @@
 #!/bin/bash
+
+function findfiles() {
+	exception=""
+	if [ $author -eq 1 ]
+	then
+		exception="-not -name 'author-signature.xml"
+	fi
+
+	echo  $(find . -type f $exception -not -name 'signature*.xml' -not -name '*.wgt'  |  sed -e 's,^\.\/,,' | sed -f /usr/bin/url-encode.sed)
+}
+
 . $(dirname $0)/realpath.sh
 outname=signature1.xml
 identifier=""
@@ -93,7 +104,7 @@ then
 
     if [ $update -eq 0 ]
     then
-    	$BASE/signing-template.sh --method $KEYTYPE --role author $identifier $(find . -type f -not -name 'signature*.xml' -not -name 'author-signature.xml' -not -name '*.wgt' -not -wholename "*CVS*" | sed -e 's,^\.\/,,'  |sed -e 's,\ ,%20,g' ) > $template
+    	$BASE/signing-template.sh --method $KEYTYPE --role author $identifier $(findfiles) > $template
 	else
         template=$outname
     fi
@@ -108,7 +119,7 @@ then
 else
     if [ $update -eq 0 ]
     then
-        $BASE/signing-template.sh --method $KEYTYPE --role distributor $identifier $(find . -type f -not -name 'signature*.xml' -not -name '*.wgt' -not -wholename "*CVS*" | sed -e 's,^\.\/,,' |sed -e 's,\ ,%20,g' ) > $template
+        $BASE/signing-template.sh --method $KEYTYPE --role distributor $identifier $(findfiles) > $template
     else
         template=$outname
     fi
