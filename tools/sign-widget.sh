@@ -4,7 +4,7 @@ function findfiles() {
 	exception=""
 	if [ $author -eq 1 ]
 	then
-		exception="-not -name 'author-signature.xml"
+		exception="-not -name author-signature.xml"
 	fi
 
 	echo  $(find . -type f $exception -not -name 'signature*.xml' -not -name '*.wgt'  |  sed -e 's,^\.\/,,' | sed -f /usr/bin/url-encode.sed)
