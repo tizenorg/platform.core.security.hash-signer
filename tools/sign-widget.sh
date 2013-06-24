@@ -1,5 +1,25 @@
 #!/bin/bash
 
+cleantempfiles()
+{
+    if test ! -z $template && test -e $template
+    then
+        rm $template
+    fi
+    if test ! -z $tempsig && test -e $tempsig
+    then
+        rm $tempsig
+    fi
+    if test ! -z $tempsig2 && test -e $tempsig2
+    then
+        rm $tempsig2
+    fi
+    if test ! -z $oldtemp && test -e $oldtemp
+    then
+        rm $oldtemp
+    fi
+}
+
 function findfiles() {
 	exception=""
 	if [ $author -eq 1 ]
@@ -7,7 +27,7 @@ function findfiles() {
 		exception="-not -name author-signature.xml"
 	fi
 
-	echo  $(find . -type f $exception -not -name 'signature*.xml' -not -name '*.wgt'  |  sed -e 's,^\.\/,,' | sed -f /usr/bin/url-encode.sed)
+	echo  $(find . -type f $exception -not -name 'signature*.xml' |  sed -e 's,^\.\/,,' | sed -f /usr/bin/url-encode.sed)
 }
 
 . $(dirname $0)/realpath.sh
@@ -114,6 +134,7 @@ then
     if test "$ret" != "0"
     then
         echo "Failed to generate Author Signature. [$ret]"
+        cleantempfiles
         exit $ret
     fi
 else
@@ -128,6 +149,7 @@ else
     if test "$ret" != "0"
     then
         echo "Failed to generate Distributor Signature. [$ret]"
+        cleantempfiles
         exit $ret
     fi
 fi
@@ -147,6 +169,7 @@ do
         if test "$ret" != "0"
         then
             echo "Failed to generate Author Signature. [$ret]"
+            cleantempfiles
             exit $ret
         fi
     fi
@@ -159,6 +182,7 @@ ret=$?
 if test "$ret" != "0"
 then
     echo "Failed to generate Distributor Signature. [$ret]"
+    cleantempfiles
     exit $ret
 fi
 xmlstarlet ed -P -N s="http://www.w3.org/2000/09/xmldsig#" -m "//s:Signature/s:KeyInfo/s:X509Data/s:X509Certificate[1]" "//s:Signature/s:KeyInfo/s:X509Data" $tempsig2 > $outname
@@ -166,6 +190,7 @@ ret=$?
 if test "$ret" != "0"
 then
     echo "Failed to generate Distributor Signature. [$ret]"
+    cleantempfiles
     exit $ret
 fi
 chmod 744 $outname
@@ -206,3 +231,5 @@ then
 fi
 
 echo Signed $1
+
+cleantempfiles
