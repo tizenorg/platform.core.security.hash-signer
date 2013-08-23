@@ -1,7 +1,7 @@
 Name:       hash-signer
 Summary:    TBD
 Version:    0.0.1
-Release:    1
+Release:    2
 Group:      TO_BE/FILLED_IN
 License:    TO BE FILLED IN
 Source0:    %{name}-%{version}.tar.gz
