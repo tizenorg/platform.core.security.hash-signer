@@ -15,6 +15,6 @@
     %{!?disable_docs_package:/usr/lib/rpm/tizen/find-docs.sh %{buildroot}} \
     %{?tizen_author_sign: %define tizen_author_flag -a} \
     %{?tizen_dist_sign: %define tizen_dist_flag -d} \
-    %{?tizen_sign:/usr/bin/hash-signer.sh %tizen_author_flag %tizen_dist_flag -p %tizen_sign_level  $RPM_BUILD_ROOT/%tizen_sign_base} \
+    %{?tizen_sign:/usr/bin/hash-signer.sh %tizen_author_flag %tizen_dist_flag -p %tizen_sign_level  -b $RPM_BUILD_ROOT "%tizen_sign_base"} \
 %{nil}
 
