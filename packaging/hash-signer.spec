@@ -1,9 +1,9 @@
 Name:       hash-signer
-Summary:    TBD
+Summary:    Commandline tool for Tizen Signing
 Version:    0.0.1
 Release:    2
-Group:      TO_BE/FILLED_IN
-License:    TO BE FILLED IN
+Group:      Productivity/Security
+License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires: xmlsec1
 Requires:   xmlstarlet
@@ -11,7 +11,8 @@ Requires:   xmlsec1
 Requires:   zip
 Requires:   unzip
 %description
-TBD
+hash-signer is command line signing tool for OBS/GBS. It generates signature
+files in OBS/GBS build time. Refer to signature spec  http://www.w3.org/TR/widgets-digsig.
 
 %prep
 %setup -q
