@@ -1,10 +1,11 @@
 #/bin/bash
+source /etc/tizen-platform.conf
 
 generateAuthorSig=0
 generateDistSig=0
 baseDir="./"
 privilegeLevel="public"
-authSignCert="/opt/usr/share/certs/signer/tizen_author.p12"
+authSignCert="${TZ_USER_SHARE}/certs/signer/tizen_author.p12"
 authSignCertPwd="tizenauthor"
 distSignCertPwd="tizenpkcs12passfordsigner"
 buildRootDir=""
@@ -38,25 +39,25 @@ do
 	if [ "$privilegeLevel" == "partner" ]
 	then
 		echo "Sign as partner level"
-		distSignCert="/opt/usr/share/certs/signer/tizen-distributor-partner-signer.p12"
+		distSignCert="${TZ_USER_SHARE}/certs/signer/tizen-distributor-partner-signer.p12"
 	elif [ "$privilegeLevel" == "platform" ]
 	then
 		echo "Sign as platform level"
-		distSignCert="/opt/usr/share/certs/signer/tizen-distributor-partner-manufacturer-signer.p12"
+		distSignCert="${TZ_USER_SHARE}/certs/signer/tizen-distributor-partner-manufacturer-signer.p12"
 	else
 		echo "Sign as public level"
-		distSignCert="/opt/usr/share/certs/signer/tizen-distributor-public-signer.p12"
+		distSignCert="${TZ_USER_SHARE}/certs/signer/tizen-distributor-public-signer.p12"
 	fi
 
 	if test "$generateAuthorSig" != "0"
 	then
 		echo "Generate Author Signature"
-		/usr/bin/sign-widget.sh --pkcs12 "$authSignCert" --pwd "$authSignCertPwd" -a -x "$baseDir"
+		${TZ_SYS_BIN}/sign-widget.sh --pkcs12 "$authSignCert" --pwd "$authSignCertPwd" -a -x "$baseDir"
 	fi
 
 	if test "$generateDistSig" != "0"
 	then
 		echo "Generate Distributor Signature"
-		/usr/bin/sign-widget.sh --pkcs12 "$distSignCert" --pwd "$distSignCertPwd" -x "$baseDir"
+		${TZ_SYS_BIN}/sign-widget.sh --pkcs12 "$distSignCert" --pwd "$distSignCertPwd" -x "$baseDir"
 	fi
 done

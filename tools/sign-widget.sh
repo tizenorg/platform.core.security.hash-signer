@@ -1,4 +1,5 @@
 #!/bin/bash
+source /etc/tizen-platform.conf
 
 cleantempfiles()
 {
@@ -27,7 +28,7 @@ function findfiles() {
 		exception="-not -name author-signature.xml"
 	fi
 
-	echo  $(find . -type f $exception -not -name 'signature*.xml' |  sed -e 's,^\.\/,,' | sed -f /usr/bin/url-encode.sed)
+	echo  $(find . -type f $exception -not -name 'signature*.xml' |  sed -e 's,^\.\/,,' | sed -f ${TZ_SYS_BIN}/url-encode.sed)
 }
 
 . $(dirname $0)/realpath.sh

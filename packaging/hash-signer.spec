@@ -6,6 +6,9 @@ Group:      Productivity/Security
 License:    Apache-2.0
 Source0:    %{name}-%{version}.tar.gz
 BuildRequires: xmlsec1
+BuildRequires: pkgconfig(libtzplatform-config)
+
+Requires:   libtzplatform-config
 Requires:   xmlstarlet
 Requires:   xmlsec1
 Requires:   zip
@@ -21,17 +24,18 @@ files in OBS/GBS build time. Refer to signature spec  http://www.w3.org/TR/widge
 
 
 %install
+source /etc/tizen-platform.conf
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}/opt/usr/share/certs/signer
-cp -arf certificates/* %{buildroot}/opt/usr/share/certs/signer/
-mkdir -p %{buildroot}/usr/bin
-cp -arf tools/* %{buildroot}/usr/bin/
+mkdir -p %{buildroot}${TZ_USER_SHARE}/certs/signer
+cp -arf certificates/* %{buildroot}${TZ_USER_SHARE}/certs/signer/
+mkdir -p %{buildroot}${TZ_SYS_BIN}
+cp -arf tools/* %{buildroot}${TZ_SYS_BIN}/
 mkdir -p %{buildroot}/etc/rpm
 cp -arf macros/* %{buildroot}/etc/rpm/
 
 %files
 %defattr(-,root,root,-)
 /opt/usr/share/certs/signer/*
-/usr/bin/*
+%{TZ_SYS_BIN}/*
 /etc/rpm/*
