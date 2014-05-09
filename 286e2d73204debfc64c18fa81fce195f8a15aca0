@@ -1,0 +1,9 @@
+Code-Review+2: Casey Schaufler <casey.schaufler@intel.com>
+Code-Review+1: Bumjin Im <bj.im@samsung.com>
+Verified+1: Bumjin Im <bj.im@samsung.com>
+Verified+1: Kévin THIERRY <kevin.thierry@open.eurogiciel.org>
+Submitted-by: Casey Schaufler <casey.schaufler@intel.com>
+Submitted-at: Fri, 09 May 2014 07:57:33 -0700
+Reviewed-on: https://review.tizen.org/gerrit/18363
+Project: platform/core/security/hash-signer
+Branch: refs/heads/tizen
