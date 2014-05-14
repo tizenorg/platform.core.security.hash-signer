@@ -54,12 +54,14 @@ do
 	if test "$generateAuthorSig" != "0"
 	then
 		echo "Generate Author Signature"
+		rm -rf "$baseDir/author-signature.xml"
 		/usr/bin/sign-widget.sh --pkcs12 "$authSignCert" --pwd "$authSignCertPwd" -a -x "$baseDir"
 	fi
 
 	if test "$generateDistSig" != "0"
 	then
 		echo "Generate Distributor Signature"
+		rm -rf "$baseDir/signature*.xml"
 		/usr/bin/sign-widget.sh --pkcs12 "$distSignCert" --pwd "$distSignCertPwd" -x "$baseDir"
 	fi
 done
