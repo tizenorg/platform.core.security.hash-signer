@@ -47,7 +47,13 @@ cd "$wgtdir"
 
 result=0
 signedwidget=0
-for i in $(find . -name author-signature.xml -o -name 'signature*.xml')
+search=`find . -name 'signature*.xml'`
+
+if [ -z "$search" -o ! -f "$search" ] ; then
+	search=`find . -name 'author-signature.xml'`
+fi
+
+for i in $search
 do
     signedwidget=1
 	if ! rnv $toolsdir/xmldsig.rnc $i
