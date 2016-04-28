@@ -27,7 +27,7 @@ function findfiles() {
 		exception="-not -name author-signature.xml"
 	fi
 
-	echo  $(find . -type f $exception -not -name 'signature*.xml' |  sed -e 's,^\.\/,,' | sed -f /usr/bin/url-encode.sed)
+	echo  $(find . \( -type f -o -type l \) $exception -not -name 'signature*.xml' |  sed -e 's,^\.\/,,' | sed -f /usr/bin/url-encode.sed)
 }
 
 . $(dirname $0)/realpath.sh
